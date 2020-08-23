@@ -3,3 +3,44 @@ type Todo @model {
   name: String!
   description: String
 }
+
+
+
+type Task @model 
+  @key(name: "tasksByStatus", fields: ["status"], queryField: "tasksByStatus") {  
+
+  id: ID!
+  title: String
+  description: String
+  platform: String
+  store: String
+  item: String
+  sku: String
+  unitPrice: Int
+  quantity: Int
+  status: TaskStatus!
+  assignerID: ID
+  assigneeID: ID
+  # assigner: Profile @connection(fields: ["assignerID"])
+  # assignee: Profile @connection(fields: ["assigneeID"])
+}
+
+enum TaskStatus {
+  PENDING
+  CLAIMED
+  PAYED_ORDER
+  BUYER_CONFIRMED
+  PAYED_FEE
+}
+
+type Profile @model 
+  @key(name: "profileByUserID", fields: ["userID"], queryField: "profileByUserID") {  
+  
+  id: ID!
+  wechat: String
+  mobilePhone: String
+  role: String!
+  name: String
+  userID: String! 
+  email: String
+}
